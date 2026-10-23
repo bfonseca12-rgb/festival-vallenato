@@ -22,13 +22,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Apps de tu proyecto
+    # Apps del proyecto
     'votaciones',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Servidor de archivos estáticos para Render
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Middleware para servir archivos estáticos en Render
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -41,7 +41,7 @@ ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'BACKEND': 'django.template.backends.DjangoTemplates',
         'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -106,11 +106,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+# Ruta explícita a la carpeta estática dentro de la app votaciones
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    BASE_DIR / 'votaciones' / 'static',
 ]
 
-# Almacenamiento seguro de WhiteNoise para evitar errores de despliegue
+# Almacenamiento seguro de WhiteNoise para producción
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Default primary key field type
