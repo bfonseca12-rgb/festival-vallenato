@@ -5,7 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Opcion
 
 def lista_votaciones(request):
-    opciones = Opcion.objects.all()
+    # Se ordenan los candidatos de mayor a menor votos
+    opciones = Opcion.objects.all().order_by('-votos', 'nombre')
     return render(request, 'votaciones/index.html', {'opciones': opciones})
 
 @login_required
