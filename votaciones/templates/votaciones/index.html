@@ -1,32 +1,57 @@
-{% for opcion in votacion.opciones.all %}
-  <div class="col-md-4 mb-4">
-    <div class="card h-100 text-center shadow-sm">
-      
-      <!-- Foto del cantante -->
-      {% if opcion.imagen %}
-        <img src="{{ opcion.imagen.url }}" class="card-img-top" alt="{{ opcion.nombre }}" style="max-height: 250px; object-fit: cover;">
-      {% endif %}
+{% extends 'votaciones/base.html' %}
 
-      <div class="card-body d-flex flex-column justify-content-between">
-        <h5 class="card-title fw-bold">{{ opcion.nombre }}</h5>
-        
-        <!-- Muestra de música (MP3) -->
-        {% if opcion.audio %}
-          <div class="my-2">
-            <audio controls class="w-100">
-              <source src="{{ opcion.audio.url }}" type="audio/mpeg">
-              Tu navegador no soporta el reproductor de audio.
-            </audio>
-          </div>
-        {% endif %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Festival de la Leyenda Vallenata 2027</h2>
 
-        <!-- Botón para votar -->
-        <form action="{% url 'votar' opcion.id %}" method="POST" class="mt-2">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-warning w-100 fw-bold">Votar</button>
-        </form>
-      </div>
+    <div class="row">
+        {% for opcion in opciones %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <!-- Validación de Imagen -->
+                {% if opcion.imagen %}
+                    <img src="{{ opcion.imagen.url }}" class="card-img-top" alt="{{ opcion.nombre }}" style="max-height: 250px; object-fit: cover;">
+                {% else %}
+                    <div class="bg-secondary text-white text-center py-5">
+                        <p class="m-0">Sin imagen disponible</p>
+                    </div>
+                {% endif %}
 
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ opcion.nombre }}</h5>
+                    <p class="card-text text-muted">{{ opcion.descripcion }}</p>
+
+                    <!-- Validación de Audio -->
+                    {% if opcion.audio %}
+                        <div class="mt-2 mb-3">
+                            <audio controls class="w-100">
+                                <source src="{{ opcion.audio.url }}" type="audio/mpeg">
+                                Tu navegador no soporta el reproductor de audio.
+                            </audio>
+                        </div>
+                    {% else %}
+                        <p class="text-muted small"><em>Audio no disponible</em></p>
+                    {% endif %}
+
+                    <div class="mt-auto">
+                        <p class="fw-bold">Votos: {{ opcion.votos }}</p>
+                        {% if user.is_authenticated %}
+                            <form action="{% url 'registrar_voto' opcion.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary w-100">Votar</button>
+                            </form>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-outline-primary w-100">Inicia sesión para votar</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p class="alert alert-info">No hay opciones registradas actualmente.</p>
+        </div>
+        {% endfor %}
     </div>
-  </div>
-{% endfor %}
+</div>
+{% endblock %}
