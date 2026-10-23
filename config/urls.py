@@ -1,13 +1,9 @@
 from django.contrib import admin
-from django.urls import path, include, re_path
-from django.conf import settings
-from django.views.static import serve
+from django.urls import path, include
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('votaciones.urls')),
-    
-    # Servir multimedia y estáticos de forma directa y segura en Render
-    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
-    re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+    path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
 ]
