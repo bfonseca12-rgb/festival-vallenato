@@ -7,7 +7,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            /* Fondo con la imagen del acordeon y la bandera de Colombia */
             background-image: url('https://image.shutterstock.com/image-vector/festival-de-la-leyenda-vallenata-260nw-1077263282.jpg');
             background-size: cover;
             background-position: center;
@@ -17,15 +16,13 @@
             color: #333;
         }
 
-        /* Capa traslucida para facilitar la lectura del contenido */
         .main-overlay {
-            background-color: rgba(255, 255, 255, 0.88);
+            background-color: rgba(255, 255, 255, 0.90);
             border-radius: 15px;
             padding: 25px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
-        /* Banner principal estilizado */
         .header-colombia {
             background: #ffffff;
             border-top: 8px solid #fcd116; /* Amarillo */
@@ -83,7 +80,7 @@
 </head>
 <body>
 
-    <!-- Navegacion -->
+    <!-- Navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
         <div class="container">
             <a class="navbar-brand fw-bold" href="/">🪗 Festival Vallenato 2027</a>
@@ -102,14 +99,39 @@
     <div class="container my-4">
         <div class="main-overlay">
             
-            <!-- Encabezado Inspirado en el Afiche -->
+            <!-- Encabezado Principal -->
             <div class="header-colombia mb-4 py-4 text-center rounded">
                 <h1 class="titulo-festival fw-bold display-5 m-0">FESTIVAL DE LA LEYENDA VALLENATA</h1>
                 <p class="subtitulo-valledupar mt-2 mb-0">VALLEDUPAR - COLOMBIA</p>
             </div>
 
-            <!-- Seccion de Instrumentos Tradicionales -->
-            <div class="mb-5 p-4 bg-white rounded border border-warning shadow-sm">
+            <!-- Sección: Introducción y Objetivos -->
+            <div class="row mb-5">
+                <!-- Introducción -->
+                <div class="col-md-6 mb-3">
+                    <div class="p-4 bg-white rounded border border-warning h-100 shadow-sm">
+                        <h4 class="fw-bold text-dark mb-3">📖 Introducción</h4>
+                        <p class="text-muted leading-relaxed m-0">
+                            El <strong>Festival de la Leyenda Vallenata</strong> es el evento cultural folclórico más importante de Colombia. Celebrado anualmente en Valledupar, busca preservar, promover y enaltecer las cuatro formas líricas y rítmicas del vallenato: el paseo, el merengue, la puya y el son, declarados Patrimonio Cultural Inmaterial de la Humanidad por la UNESCO.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Objetivos -->
+                <div class="col-md-6 mb-3">
+                    <div class="p-4 bg-white rounded border border-primary h-100 shadow-sm">
+                        <h4 class="fw-bold text-dark mb-3">🎯 Objetivo del Sistema</h4>
+                        <ul class="text-muted m-0 ps-3">
+                            <li class="mb-2"><strong>Participación Democrática:</strong> Permitir que la comunidad vote digitalmente por sus aspirantes favoritos a Rey Vallenato.</li>
+                            <li class="mb-2"><strong>Difusión Cultural:</strong> Difundir las composiciones musicales e interpretaciones mediante archivos multimedia interactivos.</li>
+                            <li><strong>Transparencia:</strong> Registrar en tiempo real el escrutinio de votos de cada participante.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de Instrumentos Tradicionales -->
+            <div class="mb-5 p-4 bg-white rounded border border-secondary shadow-sm">
                 <h3 class="text-center fw-bold text-dark mb-4">🪗 Instrumentos Tradicionales</h3>
                 <div class="row text-center">
                     <div class="col-md-4 mb-3">
