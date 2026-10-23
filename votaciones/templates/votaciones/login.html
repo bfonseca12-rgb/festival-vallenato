@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -39,8 +40,8 @@
 </head>
 <body>
 
-    <!-- Imagen exacta de la bandera con el acordeón -->
-    <img src="https://i.ibb.co/1fW9W1Q/colombia-vallenato.jpg" class="bg-acordeon-img" alt="Acordeón sobre bandera de Colombia">
+    <!-- Imagen local del acordeon -->
+    <img src="{% static 'votaciones/fondo_acordeon.jpg' %}" class="bg-acordeon-img" alt="Acordeón sobre bandera de Colombia">
 
     <div class="container my-4">
         <div class="row justify-content-center">
