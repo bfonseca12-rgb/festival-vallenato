@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
+    <!-- Navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow">
         <div class="container">
             <a class="navbar-brand fw-bold" href="/">Festival Vallenato 2027</a>
@@ -23,13 +24,45 @@
     </nav>
 
     <div class="container my-4">
+        
+        <!-- Sección de Instrumentos del Vallenato -->
+        <div class="mb-5 p-4 bg-white rounded shadow-sm border">
+            <h3 class="text-center fw-bold text-success mb-4">🪗 Instrumentos Tradicionales del Vallenato</h3>
+            <div class="row text-center">
+                <div class="col-md-4 mb-3">
+                    <div class="p-3 border rounded bg-light h-100">
+                        <div class="fs-1 mb-2">🪗</div>
+                        <h5 class="fw-bold">El Acordeón</h5>
+                        <p class="text-muted small">Instrumento de viento y fuelle de origen europeo, alma y guía melodiosa del conjunto vallenato.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="p-3 border rounded bg-light h-100">
+                        <div class="fs-1 mb-2">🥁</div>
+                        <h5 class="fw-bold">La Caja Vallenata</h5>
+                        <p class="text-muted small">Tambor pequeño de origen africano que marca el ritmo y el compás característico del género.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="p-3 border rounded bg-light h-100">
+                        <div class="fs-1 mb-2">🥢</div>
+                        <h5 class="fw-bold">La Guacharaca</h5>
+                        <p class="text-muted small">Instrumento idiófono de rascado de origen indígena autóctono que aporta el brillo rítmico.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- Sección de Candidatos y Canciones -->
         <h2 class="text-center mb-4 fw-bold text-primary">Candidatos y Canciones</h2>
 
         <div class="row">
             {% for opcion in opciones %}
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow border-0">
-                    <!-- Manejo de Imagen de Candidato -->
+                    <!-- Imagen del Candidato -->
                     {% if opcion.imagen %}
                         <img src="{{ opcion.imagen.url }}" class="card-img-top" alt="{{ opcion.nombre }}" style="height: 240px; object-fit: cover;">
                     {% elif opcion.foto %}
@@ -44,7 +77,7 @@
                         <h5 class="card-title fw-bold text-dark">{{ opcion.nombre }}</h5>
                         <p class="card-text text-muted small mb-3">{{ opcion.descripcion }}</p>
 
-                        <!-- Reproductor de Audio Principal -->
+                        <!-- Reproductor de Audio -->
                         <div class="mb-3 bg-light p-2 rounded border">
                             <label class="form-label small text-muted fw-bold d-block mb-1">Música / Canción:</label>
                             {% if opcion.audio %}
