@@ -5,9 +5,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('votaciones.urls')), # O el nombre de las urls de tu app
+    path('', include('votaciones.urls')),
 ]
 
-# ESTA LÍNEA PERMITE SERVIR LA CARPETA MEDIA
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Servir archivos estáticos y multimedia en producción
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
