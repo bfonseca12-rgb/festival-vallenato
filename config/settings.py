@@ -139,3 +139,18 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+
+import os
+
+# CONFIGURACIÓN DE ARCHIVOS ESTÁTICOS (Soluciona el error)
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# CONFIGURACIÓN DE ARCHIVOS MULTIMEDIA (Imágenes y Audios)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# REDIRECCIONES DE LOGIN
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
