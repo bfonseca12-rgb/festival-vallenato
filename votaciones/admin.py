@@ -1,18 +1,10 @@
 from django.contrib import admin
 from .models import Edicion, Categoria, Votacion, Opcion
 
-@admin.register(Edicion)
-class EdicionAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'year', 'fecha_inicio', 'fecha_fin')
-
-@admin.register(Categoria)
-class CategoriaAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'edicion')
-
-@admin.register(Votacion)
-class VotacionAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'categoria', 'activa')
+admin.site.register(Edicion)
+admin.site.register(Categoria)
+admin.site.register(Votacion)
 
 @admin.register(Opcion)
 class OpcionAdmin(admin.ModelAdmin):
-    list_display = ('nombre_candidato', 'votacion')
+    list_display = ('nombre', 'votacion', 'votos')

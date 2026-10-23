@@ -2,35 +2,34 @@ from django.db import models
 
 class Edicion(models.Model):
     nombre = models.CharField(max_length=100)
-    year = models.IntegerField(default=2027)
-    fecha_inicio = models.DateField()
-    fecha_fin = models.DateField()
 
     def __str__(self):
-        return f"{self.nombre} ({self.year})"
+        return self.nombre
+
 
 class Categoria(models.Model):
-    edicion = models.ForeignKey(Edicion, on_delete=models.CASCADE, related_name='categorias')
     nombre = models.CharField(max_length=100)
-    descripcion = models.TextField(blank=True, null=True)
+    edicion = models.ForeignKey(Edicion, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.nombre} - {self.edicion.nombre}"
+        return self.nombre
+
 
 class Votacion(models.Model):
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='votaciones')
-    titulo = models.CharField(max_length=150)
-    descripcion = models.TextField()
+    titulo = models.CharField(max_length=100)
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, null=True, blank=True)
     activa = models.BooleanField(default=True)
 
     def __str__(self):
         return self.titulo
 
+
 class Opcion(models.Model):
-    votacion = models.ForeignKey(Votacion, on_delete=models.CASCADE, related_name='opciones')
-    nombre_candidato = models.CharField(max_length=150)
-    descripcion = models.TextField(blank=True, null=True)
+    votacion = models.ForeignKey(Votacion, on_delete=models.CASCADE, related_name='opciones', null=True, blank=True)
+    nombre = models.CharField(max_length=100)  # Utilizas 'nombre'
     votos = models.IntegerField(default=0)
+    imagen = models.ImageField(upload_to='cantantes/imagenes/', blank=True, null=True)
+    audio = models.FileField(upload_to='cantantes/audios/', blank=True, null=True)
 
     def __str__(self):
-        return f"{self.nombre_candidato} ({self.votacion.titulo})"
+        return self.nombre
