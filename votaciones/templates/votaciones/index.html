@@ -58,17 +58,20 @@
 </head>
 <body>
 
-    <!-- Fondo de pantalla fija -->
+    <!-- Fondo de pantalla fija de la aplicación -->
     <img src="{% static 'votaciones/fondo_acordeon.jpg' %}" class="bg-acordeon-img" alt="Fondo Festival Vallenato">
 
     <!-- Navegación superior -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-opacity-75 mb-4 border-bottom border-warning">
         <div class="container">
-            <a class="navbar-brand fw-bold fs-4" href="#">🪗 Festival de la Leyenda Vallenata 2027</a>
+            <a class="navbar-brand fw-bold fs-4" href="{% url 'lista_votaciones' %}">🪗 Festival de la Leyenda Vallenata 2027</a>
             <div class="d-flex align-items-center">
                 {% if user.is_authenticated %}
                     <span class="navbar-text me-3 text-white fw-bold">Bienvenido, {{ user.username }}</span>
-                    <a href="{% url 'logout' %}" class="btn btn-outline-light btn-sm">Cerrar Sesión</a>
+                    <form method="post" action="{% url 'logout' %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-light btn-sm">Cerrar Sesión</button>
+                    </form>
                 {% else %}
                     <a href="{% url 'login' %}" class="btn btn-outline-light btn-sm me-2">Iniciar Sesión</a>
                     <a href="{% url 'registro' %}" class="btn btn-warning btn-sm fw-bold">Registrarse</a>
@@ -99,26 +102,28 @@
 
         <h2 class="text-center text-white fw-bold mb-4 bg-dark bg-opacity-75 py-2 rounded border border-warning">Candidatos y Canciones</h2>
 
-        <!-- Grilla de Cantantes y Reproductores -->
+        <!-- Grilla de Cantantes usando 'opciones' directamente desde views.py -->
         <div class="row justify-content-center g-4">
-            {% for candidato in candidatos %}
+            {% for opcion in opciones %}
             <div class="col-md-6 col-lg-4">
                 <div class="card card-custom h-100">
                     
-                    {% if candidato.imagen %}
-                        <img src="{{ candidato.imagen.url }}" class="candidato-img" alt="{{ candidato.nombre }}">
+                    <!-- Campo 'imagen' según models.py -->
+                    {% if opcion.imagen %}
+                        <img src="{{ opcion.imagen.url }}" class="candidato-img" alt="{{ opcion.nombre }}">
                     {% endif %}
 
                     <div class="card-body d-flex flex-column justify-content-between p-4">
                         <div>
-                            <h3 class="card-title fw-bold text-dark text-center mb-3">{{ candidato.nombre }}</h3>
+                            <h3 class="card-title fw-bold text-dark text-center mb-3">{{ opcion.nombre }}</h3>
                             
                             <p class="text-muted mb-2 small fw-bold">Música / Canción en competencia:</p>
                             
+                            <!-- Campo 'audio' según models.py -->
                             <div class="bg-light p-2 rounded mb-3 border">
-                                {% if candidato.cancion %}
+                                {% if opcion.audio %}
                                 <audio controls>
-                                    <source src="{{ candidato.cancion.url }}" type="audio/mpeg">
+                                    <source src="{{ opcion.audio.url }}" type="audio/mpeg">
                                     Tu navegador no soporta el elemento de audio.
                                 </audio>
                                 {% else %}
@@ -130,11 +135,12 @@
                         <div class="border-top pt-3 mt-2">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <span class="fw-bold text-secondary fs-6">Total Votos:</span>
-                                <span class="badge bg-danger fs-6 px-3 py-2 rounded-pill">{{ candidato.votos }}</span>
+                                <span class="badge bg-danger fs-6 px-3 py-2 rounded-pill">{{ opcion.votos }}</span>
                             </div>
 
                             {% if user.is_authenticated %}
-                                <form method="POST" action="{% url 'votar' candidato.id %}">
+                                <!-- URL 'registrar_voto' según urls.py -->
+                                <form method="POST" action="{% url 'registrar_voto' opcion.id %}">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-success w-100 fw-bold py-2">Votar por este candidato</button>
                                 </form>
