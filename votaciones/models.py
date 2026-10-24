@@ -26,7 +26,7 @@ class Votacion(models.Model):
 
 class Opcion(models.Model):
     votacion = models.ForeignKey(Votacion, on_delete=models.CASCADE, related_name='opciones', null=True, blank=True)
-    nombre = models.CharField(max_length=100)  # Utilizas 'nombre'
+    nombre = models.CharField(max_length=100)
     votos = models.IntegerField(default=0)
     imagen = models.ImageField(upload_to='cantantes/imagenes/', blank=True, null=True)
     audio = models.FileField(upload_to='cantantes/audios/', blank=True, null=True)
