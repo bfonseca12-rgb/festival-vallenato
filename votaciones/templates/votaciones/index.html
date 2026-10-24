@@ -87,7 +87,7 @@
                     <h1 class="fw-bold text-warning mb-3">Votaciones Oficiales 2027</h1>
                     <p class="fs-5 mb-3">
                         Bienvenido a la plataforma oficial de votación del <strong>Festival de la Leyenda Vallenata 2027</strong>. 
-                        Nuestra misión es enaltecer el folclor colombian y rendir homenaje a los grandes intérpretes del acordeón, la caja y la guacharaca.
+                        Nuestra misión es enaltecer el folclor colombiano y rendir homenaje a los grandes intérpretes del acordeón, la caja y la guacharaca.
                     </p>
                     <hr class="border-warning my-3 opacity-50">
                     <p class="mb-0 text-light">
@@ -105,7 +105,6 @@
             <div class="col-md-6 col-lg-4">
                 <div class="card card-custom h-100">
                     
-                    <!-- Foto del cantante desde la BD -->
                     {% if candidato.imagen %}
                         <img src="{{ candidato.imagen.url }}" class="candidato-img" alt="{{ candidato.nombre }}">
                     {% endif %}
@@ -116,7 +115,6 @@
                             
                             <p class="text-muted mb-2 small fw-bold">Música / Canción en competencia:</p>
                             
-                            <!-- Audio desde la BD -->
                             <div class="bg-light p-2 rounded mb-3 border">
                                 {% if candidato.cancion %}
                                 <audio controls>
