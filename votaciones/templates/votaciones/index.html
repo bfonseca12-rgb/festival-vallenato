@@ -50,7 +50,7 @@
 </head>
 <body>
 
-    <!-- Fondo de pantalla general -->
+    <!-- Fondo de pantalla general de la aplicación -->
     <img src="{% static 'votaciones/fondo_acordeon.jpg' %}" class="bg-acordeon-img" alt="Fondo Festival Vallenato">
 
     <!-- Navegación superior -->
@@ -69,20 +69,20 @@
         </div>
     </nav>
 
-    <!-- Contenido principal -->
+    <!-- Contenido Principal -->
     <div class="container pb-5">
         <h2 class="text-center text-white fw-bold mb-4 bg-dark bg-opacity-50 py-2 rounded">Candidatos y Canciones</h2>
 
         <div class="row justify-content-center g-4">
             {% for candidato in candidatos %}
+            <!-- Tarjetas procesadas dinámicamente desde la BD -->
             <div class="col-md-5 col-lg-4">
                 <div class="card card-custom h-100">
                     
-                    <!-- Carga dinámica con fallback a foto genérica de cantante -->
                     {% if candidato.imagen %}
                         <img src="{{ candidato.imagen.url }}" class="candidato-img" alt="{{ candidato.nombre }}">
                     {% else %}
-                        <img src="{% static 'votaciones/cantante_defecto.jpg' %}" class="candidato-img" alt="{{ candidato.nombre }}">
+                        <img src="{% static 'votaciones/fondo_acordeon.jpg' %}" class="candidato-img" alt="{{ candidato.nombre }}">
                     {% endif %}
 
                     <div class="card-body d-flex flex-column justify-content-between p-4">
@@ -91,7 +91,6 @@
                             
                             <p class="text-muted mb-1 small fw-bold">Música / Canción:</p>
                             
-                            <!-- Reproductor de audio -->
                             <div class="bg-light p-2 rounded mb-3 border">
                                 {% if candidato.cancion %}
                                 <audio controls>
@@ -107,4 +106,49 @@
                         <div class="border-top pt-3 mt-2">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <span class="fw-bold text-secondary">Total Votos:</span>
-                                <span class="badge bg-danger fs-6 px-3 py-2
+                                <span class="badge bg-danger fs-6 px-3 py-2 rounded-pill">{{ candidato.votos }}</span>
+                            </div>
+
+                            {% if user.is_authenticated %}
+                                <form method="POST" action="{% url 'votar' candidato.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-success w-100 fw-bold py-2">Votar por este candidato</button>
+                                </form>
+                            {% else %}
+                                <a href="{% url 'login' %}" class="btn btn-outline-primary w-100">Inicia sesión para votar</a>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <!-- Vista por defecto cuando la base de datos de Render está vacía -->
+            <div class="col-md-5 col-lg-4">
+                <div class="card card-custom h-100">
+                    <img src="{% static 'votaciones/fondo_acordeon.jpg' %}" class="candidato-img" alt="Candidato Vallenato">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold text-center text-dark">Silvestre Dangond</h4>
+                        <p class="text-muted small fw-bold mt-2">Música / Canción:</p>
+                        <div class="bg-light p-2 rounded mb-3 border">
+                            <audio controls class="w-100">
+                                <source src="{% static 'votaciones/musica/cancion1.mp3' %}" type="audio/mpeg">
+                            </audio>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-3 border-top pt-2">
+                            <span class="fw-bold text-secondary">Total Votos:</span>
+                            <span class="badge bg-danger fs-6 px-3 py-2 rounded-pill">0</span>
+                        </div>
+                        <div class="text-center mt-3">
+                            <a href="{% url 'login' %}" class="btn btn-outline-primary w-100">Inicia sesión para votar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
