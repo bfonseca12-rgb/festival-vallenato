@@ -13,9 +13,10 @@
             min-height: 100vh;
             margin: 0;
             overflow-x: hidden;
-            background-color: #000;
+            background-color: #f8f9fa;
         }
 
+        /* Imagen de fondo extendida para toda la pantalla */
         .bg-acordeon-img {
             position: fixed;
             top: 0;
@@ -24,23 +25,22 @@
             height: 100vh;
             object-fit: cover;
             z-index: -1;
-            opacity: 0.85;
+            opacity: 0.35; /* Suaviza la imagen para que el texto resalte claramente */
         }
 
         .intro-box {
-            background-color: rgba(0, 0, 0, 0.75);
+            background-color: rgba(0, 56, 147, 0.85);
             border: 2px solid #ffc107;
             border-radius: 15px;
             color: #ffffff;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(4px);
         }
 
         .card-custom {
             background-color: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             border: 3px solid #003893;
-            backdrop-filter: blur(3px);
             overflow: hidden;
         }
 
@@ -58,11 +58,11 @@
 </head>
 <body>
 
-    <!-- Fondo de pantalla fija de la aplicación -->
+    <!-- Fondo del festival -->
     <img src="{% static 'votaciones/fondo_acordeon.jpg' %}" class="bg-acordeon-img" alt="Fondo Festival Vallenato">
 
     <!-- Navegación superior -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-opacity-75 mb-4 border-bottom border-warning">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-opacity-90 mb-4 border-bottom border-warning">
         <div class="container">
             <a class="navbar-brand fw-bold fs-4" href="{% url 'lista_votaciones' %}">🪗 Festival de la Leyenda Vallenata 2027</a>
             <div class="d-flex align-items-center">
@@ -100,15 +100,14 @@
             </div>
         </div>
 
-        <h2 class="text-center text-white fw-bold mb-4 bg-dark bg-opacity-75 py-2 rounded border border-warning">Candidatos y Canciones</h2>
+        <h2 class="text-center text-white fw-bold mb-4 bg-primary bg-opacity-75 py-2 rounded border border-warning">Candidatos y Canciones</h2>
 
-        <!-- Grilla de Cantantes usando 'opciones' directamente desde views.py -->
+        <!-- Grilla de Cantantes y Reproductores -->
         <div class="row justify-content-center g-4">
             {% for opcion in opciones %}
             <div class="col-md-6 col-lg-4">
                 <div class="card card-custom h-100">
                     
-                    <!-- Campo 'imagen' según models.py -->
                     {% if opcion.imagen %}
                         <img src="{{ opcion.imagen.url }}" class="candidato-img" alt="{{ opcion.nombre }}">
                     {% endif %}
@@ -119,49 +118,7 @@
                             
                             <p class="text-muted mb-2 small fw-bold">Música / Canción en competencia:</p>
                             
-                            <!-- Campo 'audio' según models.py -->
                             <div class="bg-light p-2 rounded mb-3 border">
                                 {% if opcion.audio %}
                                 <audio controls>
-                                    <source src="{{ opcion.audio.url }}" type="audio/mpeg">
-                                    Tu navegador no soporta el elemento de audio.
-                                </audio>
-                                {% else %}
-                                <p class="text-muted small mb-0 text-center">Sin canción cargada</p>
-                                {% endif %}
-                            </div>
-                        </div>
-
-                        <div class="border-top pt-3 mt-2">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <span class="fw-bold text-secondary fs-6">Total Votos:</span>
-                                <span class="badge bg-danger fs-6 px-3 py-2 rounded-pill">{{ opcion.votos }}</span>
-                            </div>
-
-                            {% if user.is_authenticated %}
-                                <!-- URL 'registrar_voto' según urls.py -->
-                                <form method="POST" action="{% url 'registrar_voto' opcion.id %}">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-success w-100 fw-bold py-2">Votar por este candidato</button>
-                                </form>
-                            {% else %}
-                                <a href="{% url 'login' %}" class="btn btn-outline-primary w-100 fw-bold">Inicia sesión para votar</a>
-                            {% endif %}
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            {% empty %}
-            <div class="col-12 text-center text-white py-4">
-                <div class="bg-dark bg-opacity-75 p-4 rounded d-inline-block border border-warning">
-                    <h5 class="fw-bold mb-0">No hay candidatos registrados actualmente en la base de datos.</h5>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+                                    <source src="{{ opcion.audio
