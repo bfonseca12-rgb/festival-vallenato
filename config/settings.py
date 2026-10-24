@@ -41,7 +41,7 @@ ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates', # <-- Corregido aquí
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -106,10 +106,18 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+# Configuración de Archivos Multimedia (Imágenes subidas y MP3)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# Indicar a Django y WhiteNoise qué carpetas recopilar en producción
 STATICFILES_DIRS = [
     BASE_DIR / 'votaciones' / 'static',
+    BASE_DIR / 'media',
 ]
 
+# Almacenamiento optimizado de WhiteNoise con búsqueda activa
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+WHITENOISE_USE_FINDERS = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
