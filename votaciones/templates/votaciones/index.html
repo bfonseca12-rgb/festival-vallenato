@@ -24,7 +24,7 @@
             height: 100vh;
             object-fit: cover;
             z-index: -1;
-            opacity: 0.85;
+            opacity: 0.9;
         }
 
         .intro-box {
@@ -58,8 +58,11 @@
 </head>
 <body>
 
-    <!-- Fondo de pantalla fija -->
-    <img src="{% static 'votaciones/fondo_acordeon.jpg' %}" class="bg-acordeon-img" alt="Fondo Festival Vallenato">
+    <!-- Imagen de fondo de la bandera con el acordeón -->
+    <img src="{% static 'votaciones/fondo_acordeon.jpg' %}" 
+         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1920';" 
+         class="bg-acordeon-img" 
+         alt="Fondo Festival Vallenato">
 
     <!-- Navegación superior -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-opacity-75 mb-4 border-bottom border-warning">
