@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Candidatos y Canciones - Festival Vallenato 2027</title>
+    <title>Festival Vallenato 2027</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪗</text></svg>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -50,7 +50,7 @@
 </head>
 <body>
 
-    <!-- Imagen de fondo general -->
+    <!-- Fondo de pantalla original -->
     <img src="{% static 'votaciones/fondo_acordeon.jpg' %}" class="bg-acordeon-img" alt="Fondo Festival Vallenato">
 
     <!-- Navegación superior -->
@@ -69,7 +69,7 @@
         </div>
     </nav>
 
-    <!-- Contenido principal -->
+    <!-- Contenido con candidatos dinámicos, fotos y música -->
     <div class="container pb-5">
         <h2 class="text-center text-white fw-bold mb-4 bg-dark bg-opacity-50 py-2 rounded">Candidatos y Canciones</h2>
 
@@ -78,11 +78,9 @@
             <div class="col-md-5 col-lg-4">
                 <div class="card card-custom h-100">
                     
-                    <!-- Imagen del cantante con fallback estático o dinámico -->
+                    <!-- Imagen real del cantante desde la BD -->
                     {% if candidato.imagen %}
                         <img src="{{ candidato.imagen.url }}" class="candidato-img" alt="{{ candidato.nombre }}">
-                    {% else %}
-                        <img src="{% static 'votaciones/cantantes/cantante1.jpg' %}" class="candidato-img" alt="{{ candidato.nombre }}">
                     {% endif %}
 
                     <div class="card-body d-flex flex-column justify-content-between p-4">
@@ -91,16 +89,16 @@
                             
                             <p class="text-muted mb-1 small fw-bold">Música / Canción:</p>
                             
-                            <!-- Reproductor de audio con fallback estático o dinámico -->
+                            <!-- Reproductor de audio real desde la BD -->
                             <div class="bg-light p-2 rounded mb-3 border">
+                                {% if candidato.cancion %}
                                 <audio controls>
-                                    {% if candidato.cancion %}
-                                        <source src="{{ candidato.cancion.url }}" type="audio/mpeg">
-                                    {% else %}
-                                        <source src="{% static 'votaciones/musica/cancion1.mp3' %}" type="audio/mpeg">
-                                    {% endif %}
+                                    <source src="{{ candidato.cancion.url }}" type="audio/mpeg">
                                     Tu navegador no soporta el elemento de audio.
                                 </audio>
+                                {% else %}
+                                <p class="text-muted small mb-0">Sin audio disponible</p>
+                                {% endif %}
                             </div>
                         </div>
 
@@ -124,21 +122,8 @@
                 </div>
             </div>
             {% empty %}
-            <!-- Tarjetas fijas de ejemplo por si la base de datos está vacía -->
-            <div class="col-md-5 col-lg-4">
-                <div class="card card-custom h-100">
-                    <img src="{% static 'votaciones/fondo_acordeon.jpg' %}" class="candidato-img" alt="Cantante">
-                    <div class="card-body p-4">
-                        <h4 class="fw-bold text-center">Cantante Vallenato</h4>
-                        <p class="text-muted small fw-bold mt-2">Música / Canción:</p>
-                        <audio controls class="w-100">
-                            <source src="{% static 'votaciones/musica/cancion1.mp3' %}" type="audio/mpeg">
-                        </audio>
-                        <div class="text-center mt-3 border-top pt-2">
-                            <a href="{% url 'login' %}" class="btn btn-outline-primary w-100">Inicia sesión para votar</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-12 text-center text-white">
+                <p class="fs-5">No hay candidatos registrados en este momento.</p>
             </div>
             {% endfor %}
         </div>
